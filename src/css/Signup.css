@@ -1,0 +1,33 @@
+.Signup{
+    background-image: url('../img/backgroundlogin.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.Signup .content{
+    min-width: 400px;
+    background-color: #fff;
+}
+
+.Signup input{
+    box-shadow: rgba(0, 0, 0, 0.8) 6px ;
+    height: 46px;
+    border-radius: 10px;
+}
+
+.Signup button{
+    background-color: rgb(143, 221, 240);
+    height: 46px;
+}
+
+.Signup button:hover{
+    background-color: rgba(143, 221, 240,0.5);
+}
+
+.Signup .link{
+    text-decoration: none;
+    color: rgb(12, 191, 236);
+}

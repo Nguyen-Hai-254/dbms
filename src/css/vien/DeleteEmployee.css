@@ -1,0 +1,29 @@
+.background{
+    width:100vw;
+    height:100vh;
+    top: 20px;
+    right:0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index:1001;
+    position: fixed;
+    display:flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.edit1{
+    width:33vw;
+    height:auto;
+    background-color: #ffffff !important;
+    padding: 30px 18px;
+    border-radius: 5px;
+}
+.edit-btn{
+    margin-top: 20px;
+    display:flex;
+    justify-content: space-between;
+}
+.btn{
+    padding: 8px 25px;
+}

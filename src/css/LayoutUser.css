@@ -1,0 +1,17 @@
+.navbar ul{
+    list-style: none;
+    padding-left: 0;
+}
+
+.navbar ul li:hover {
+    color: rgb(13,202,240);
+    cursor: pointer;
+}
+
+table{
+    height: 200px;
+}
+
+.LayoutUser>.container>div{
+    width: 100%;
+}

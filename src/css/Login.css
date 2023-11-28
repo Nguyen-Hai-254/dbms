@@ -1,0 +1,35 @@
+.Login{
+    background-image: url(../img/backgroundlogin.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.Login .content{
+    min-width: 400px;
+    background-color: #fff;
+}
+
+.Login input{
+    box-shadow: rgba(0, 0, 0, 0.8) 6px ;
+    height: 46px;
+    border-radius: 10px;
+}
+
+.Login button{
+    background-color: rgb(143, 221, 240);
+    height: 46px;
+}
+
+
+
+.Login button:hover{
+    background-color: rgba(143, 221, 240,0.5);
+}
+
+.Login .link{
+    text-decoration: none;
+    color: #333;
+}

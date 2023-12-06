@@ -33,10 +33,13 @@ function Login() {
       message.success("Logged in successfully")
       localStorage.setItem("name",res.user.name);
       localStorage.setItem("token",res.token);
-      localStorage.setItem("isAdmin",res.user.isAdmin);
-      if (Number(res.user.isAdmin)===0) navigate('/')
-      else                              navigate('/adm_man_user')
-      
+      localStorage.setItem("role",res.user.role);
+      console.log(res.user.role);
+      if (res.user.role==="customer") {
+      navigate('/')}
+      else  {
+      navigate('/adm_man_user')
+      }
     }).catch((error)=>{
       message.error("Login failed")
       console.log(error)

@@ -10,7 +10,7 @@ function LayoutUser({children}) {
 
     const navigate=useNavigate()
     const location = useLocation();
-
+    const name = localStorage.getItem("name")
     useEffect(()=>{
        
         if(location.pathname==='/editinfor')        document.getElementById("editinfor").style.color='#0DCAF0'
@@ -35,7 +35,7 @@ function LayoutUser({children}) {
                 <div className="container ">
                     <div className='row d-flex justify-content-center '>
                         <div className='col-2 navbar'>
-                            <h5 className='mt-3 border-bottom pb-4'>Nguyễn Tấn Đạt</h5>
+                            <h5 className='mt-3 border-bottom pb-4'>{name}</h5>
                             <ul className='mt-4'>
                                 <li onClick={e=>handle(e)} id='infor' className='pb-3'>My information</li>
                                 <li onClick={e=>handle(e)} id='editinfor' className='pb-3'>Edit information</li>

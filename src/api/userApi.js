@@ -1,52 +1,54 @@
 
 import axios from "axios";
-
+const port = process.env.PORT||5000
+const domain = `localhost:${port}`;
 export const searchItem = async (input) => {
+  console.log(input);
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/product/searchItem/${input}`,
+    url: `http://${domain}/product/searchItem?keyWord=${input}`,
   });
   return res.data;
 };
 export const getAllProduct = async () => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/product/getAllProduct`,
+    url: `http://${domain}/product/getAllProduct`,
   });
   return res.data;
 };
 export const getProductById = async (ID) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/product/getProductById/${ID}`,
+    url: `http://${domain}/product/getProductById/${ID}`,
   });
   return res.data;
 };
 export const getProductByDev = async (Dev) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/product/getProductByDev/${Dev}`,
+    url: `http://${domain}/product/getProductByDev/${Dev}`,
   });
   return res.data;
 };
 export const getProductByCode = async (Code) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/product/getProductById/${Code}`,
+    url: `http://${domain}/product/getProductById/${Code}`,
   });
   return res.data;
 };
 export const getProductByCategory = async (Category) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/product/getProductByCategory/${Category}`,
+    url: `http://${domain}/product/getProductByCategory/${Category}`,
   });
   return res.data;
 };
 export const getProductByDevAndCate = async (Dev, Category) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/product/getProductByCategory/${Category}/${Dev}`,
+    url: `http://${domain}/product/getProductByCategory/${Category}/${Dev}`,
   });
   return res.data;
 };
@@ -54,7 +56,7 @@ export const getProductByDevAndCate = async (Dev, Category) => {
 export const detailProduct = async (id) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/product/detailProduct/${id}`,
+    url: `http://${domain}/product/detailProduct/${id}`,
   });
   return res.data;
 };
@@ -62,7 +64,7 @@ export const detailProduct = async (id) => {
 export const getAllCategory = async () => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/product/getAllCategory`,
+    url: `http://${domain}/product/getAllCategory`,
   });
   return res.data;
 };
@@ -70,7 +72,7 @@ export const getAllCategory = async () => {
 export const getAllAttribute = async () => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/product/getAllAttribute`,
+    url: `http://${domain}/product/getAllAttribute`,
   });
   return res.data;
 };
@@ -78,7 +80,7 @@ export const getAllAttribute = async () => {
 export const signIn = async (formValue) => {
   const res = await axios({
     method: "post",
-    url: `http://localhost:3001/user/signIn`,
+    url: `http://${domain}/user/signIn`,
     data: formValue,
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
   });
@@ -88,7 +90,7 @@ export const signIn = async (formValue) => {
 export const signUp = async (formValue) => {
   const res = await axios({
     method: "post",
-    url: `http://localhost:3001/user/signUp`,
+    url: `http://${domain}/user/signUp`,
     data: formValue,
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
   });
@@ -98,7 +100,7 @@ export const signUp = async (formValue) => {
 export const getProfile = async (token) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/user/getProfile`,
+    url: `http://${domain}/user/getProfile`,
     headers: { Authorization: `Bearer ${token}` },
   });
   return res.data;
@@ -106,7 +108,7 @@ export const getProfile = async (token) => {
 export const editProfile = async (token, formValue) => {
   const res = await axios({
     method: "patch",
-    url: `http://localhost:3001/user/editProfile`,
+    url: `http://${domain}/user/editProfile`,
     data: formValue,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -131,7 +133,7 @@ export const setAvatar = async (token, formValue) => {
 export const getAvatar = async (token) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/user/getAvatar`,
+    url: `http://${domain}/user/getAvatar`,
     headers: { Authorization: `Bearer ${token}` },
   });
   return res.data;
@@ -139,7 +141,7 @@ export const getAvatar = async (token) => {
 export const changePassword = async (token, formValue) => {
   const res = await axios({
     method: "patch",
-    url: `http://localhost:3001/user/changePassword`,
+    url: `http://${domain}/user/changePassword`,
     data: formValue,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -152,7 +154,7 @@ export const changePassword = async (token, formValue) => {
 export const forgetPassword = async (formValue) => {
   const res = await axios({
     method: "post",
-    url: `http://localhost:3001/user/forgetPassword`,
+    url: `http://${domain}/user/forgetPassword`,
     data: formValue,
     headers: { "content-type": "application/x-www-form-urlencoded" },
   });
@@ -162,7 +164,7 @@ export const forgetPassword = async (formValue) => {
 export const getOrderByUser = async (token) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/order/getOrderByUser`,
+    url: `http://${domain}/order/getOrderByUser`,
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -173,7 +175,7 @@ export const getOrderByUser = async (token) => {
 export const viewDetailOrder = async (token, orderId) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/order/viewDetailOrder/${orderId}`,
+    url: `http://${domain}/order/viewDetailOrder/${orderId}`,
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -183,7 +185,7 @@ export const viewDetailOrder = async (token, orderId) => {
 export const addOrder = async (token, formValue) => {
   const res = await axios({
     method: "post",
-    url: `http://localhost:3001/order/addOrder`,
+    url: `http://${domain}/order/addOrder`,
     data: formValue,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -195,7 +197,7 @@ export const addOrder = async (token, formValue) => {
 export const getAllShipping = async (token) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/order/getAllShipping`,
+    url: `http://${domain}/order/getAllShipping`,
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -206,7 +208,7 @@ export const getAllShipping = async (token) => {
 export const getShipping = async (token, id) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/order/getShipping/${id}`,
+    url: `http://${domain}/order/getShipping/${id}`,
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -217,7 +219,7 @@ export const getShipping = async (token, id) => {
 export const getVoucherUserHas = async (token) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/order/getVoucherUser`,
+    url: `http://${domain}/order/getVoucherUser`,
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -62,6 +62,7 @@ function App() {
           setPhone(res.data);
         })
         .catch((error) => {
+          console.log(error);
         });
 
       getProductByCategory("Laptop")

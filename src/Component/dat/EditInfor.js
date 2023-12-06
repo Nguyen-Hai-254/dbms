@@ -19,7 +19,6 @@ function EditInfor() {
 
     useEffect(()=>{
         getProfile(localStorage.getItem("token")).then((res)=>{
-            
             setData(res)
           }).catch((error)=>{
             console.log(error)
@@ -39,7 +38,9 @@ function EditInfor() {
       editProfile(localStorage.getItem("token"),FormData).then((res)=>{
         message.success("Update user information successfully")
       }).catch((error)=>{
+        let errorMessage = error.response.data;
         console.log(error)
+        message.error(JSON.stringify(errorMessage))
     })
     }
     return (

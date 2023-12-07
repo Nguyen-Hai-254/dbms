@@ -10,7 +10,7 @@ import {faX} from '@fortawesome/free-solid-svg-icons'
 import {addStaff} from '../../api/adminApi'
 import ShowWarning from './ShowWarning'
 import {getAllStaff} from '../../api/adminApi'
-function AddEmployeeForm({setDataa,setShowForm}) {
+function AddEmployeeForm({setData2,setShowForm}) {
   const [isVisible, setIsVisible] = useState(true);
   let navigate=useNavigate()
   const [data,setData]=useState({
@@ -38,8 +38,8 @@ function AddEmployeeForm({setDataa,setShowForm}) {
       setIsVisible(false);
       getAllStaff(localStorage.getItem('token'))
       .then(res => {
-        if (res && Array.isArray(res)) {
-          setDataa(res);
+        if (res.data && Array.isArray(res.data)) {
+          setData2(res.data);
           setShowForm(false);
         }
       })

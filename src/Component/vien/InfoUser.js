@@ -16,7 +16,9 @@ function InfoUser({showInfoForm,setShowInfoForm,Id_emp}) {
     console.log("check use effect")
     const fetchData = async () => {
       const result = await getUser(Id_emp,localStorage.getItem('token'));
-      setUser(result[0]); // lưu trữ kết quả trả về vào state user
+    
+      // setUser(result[0]); // lưu trữ kết quả trả về vào state user
+      setUser(result.data);
     };
     fetchData();
   },[]);

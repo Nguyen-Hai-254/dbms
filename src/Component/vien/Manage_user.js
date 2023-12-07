@@ -22,6 +22,7 @@ function Manage_user() {
     setShowDeleteForm(true);
   }
   const handleOrder = (id) =>{
+    console.log(id);
     localStorage.setItem('user_id', id);
   }
   const handleInfoForm = (id) =>{
@@ -37,8 +38,11 @@ function Manage_user() {
   useEffect(() => {
     getAllUser(localStorage.getItem('token'))
       .then(res => {
-        if (res && Array.isArray(res)) {
-          setData(res);
+        let resData =res.data;
+      
+        if (resData && Array.isArray(resData)) {
+          setData(resData);
+          console.log(resData);
         }
       })
       .catch(error => {
@@ -50,23 +54,29 @@ function Manage_user() {
     const token = localStorage.getItem('token');
     if (phone === "") {
       const res = await getAllUser(token);
-      setData(res);
+      setData(res.data);
     }
     else{
       const res = await getUserByPhone(token, phone);
-      setData(res);
+      if(res.data!=undefined)
+      setData([res.data]);
+      else
+      setData([]);
     }
   };
   const totalPage = Math.ceil(data.length / perPage);
   const indexOfLastStaff = currentPage * perPage;
   const indexOfFirstStaff = indexOfLastStaff - perPage;
+  console.log(indexOfFirstStaff);
+  console.log(indexOfLastStaff);
   const currentStaffs = data.slice(indexOfFirstStaff, indexOfLastStaff);
+  console.log(currentStaffs);
   const pageNumbers = [];
   for (let i = 1; i <= totalPage; i++) {
     pageNumbers.push(i);
   }
   localStorage.setItem('tag', 1);
-  if (Number(localStorage.getItem("isAdmin"))===1)
+  if (localStorage.getItem("role")==="admin")
   return (
     <div>
       <HeaderAdmin />
@@ -100,13 +110,13 @@ function Manage_user() {
                 </tr>
               </thead>
               <tbody>
-                {currentStaffs.map((staff) => (
+                {currentStaffs?.map((staff) => (
                   <tr key={staff.id}>
                     <td>{staff.name}</td>
                     <td>{staff.email}</td>
                     <td>{staff.phone}</td>
                     <td>
-                      <a href="/adm_order">
+                      <a href="/adm_man_order">
                         <button
                           type="button"
                           class="btn btn-info dieu_chinh"
@@ -168,7 +178,7 @@ function Manage_user() {
   ) 
   else{
     return(
-      <h1>you are not authorized to access this site.</h1>
+      <h1>You are not authorized to access this site.</h1>
     )
   };
 }

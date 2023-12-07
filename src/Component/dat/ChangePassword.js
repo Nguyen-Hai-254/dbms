@@ -25,11 +25,13 @@ function ChangePassword() {
     function handleSubmit(e){
       e.preventDefault()
       const FormData={...data}
-      console.log("dat dep trai")
       changePassword(localStorage.getItem("token"),FormData).then((res)=>{
         message.success("đổi mật khẩu thành công")
       }).catch((error)=>{
+        let errorMessage = error.response.data;
         console.log(error)
+        message.error(JSON.stringify(errorMessage))
+
     })
     }
 

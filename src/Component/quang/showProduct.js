@@ -67,7 +67,7 @@ function ShowProduct() {
   useEffect(()=>{
     (async () =>{
       let allProduct = await getAllProduct();
-      setData(allProduct);
+      setData(allProduct.data);
     })();
   }, [state]);
   let product = data.map((element) =>
@@ -78,7 +78,7 @@ function ShowProduct() {
     setData(allProduct.data);
   }
 
-  if (Number(localStorage.getItem("isAdmin"))===1)
+  if (localStorage.getItem("role")==="admin")
   return (
     <div style={{ padding: "0px" }}>
       <HeaderAdmin/>

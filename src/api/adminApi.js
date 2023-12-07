@@ -1,9 +1,10 @@
 import axios from "axios";
-
+const port = process.env.PORT||5000
+const domain = `localhost:${port}`;
 export const getAllUser = async (token) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/admin/getAllUser`,
+    url: `http://${domain}/admin/getAllCustomer`,
     headers: { Authorization: `Bearer ${token}` },
   });
   return res.data;
@@ -11,7 +12,7 @@ export const getAllUser = async (token) => {
 export const getUserByPhone = async (token, phone) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/admin/getUserByPhone/${phone}`,
+    url: `http://${domain}/admin/getUserByPhone/${phone}`,
     headers: { Authorization: `Bearer ${token}` },
   });
   return res.data;
@@ -19,7 +20,7 @@ export const getUserByPhone = async (token, phone) => {
 export const getAllStaff = async (token) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/admin/getAllStaff`,
+    url: `http://${domain}/admin/getAllStaff`,
     headers: { Authorization: `Bearer ${token}` },
   });
   return res.data;
@@ -27,7 +28,7 @@ export const getAllStaff = async (token) => {
 export const getUser = async (id, token) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/admin/getUser/${id}`,
+    url: `http://${domain}/admin/getUser/${id}`,
     headers: { Authorization: `Bearer ${token}` },
   });
   return res.data;
@@ -35,7 +36,7 @@ export const getUser = async (id, token) => {
 export const deleteUser = async (id, token) => {
   const res = await axios({
     method: "delete",
-    url: `http://localhost:3001/admin/deleteUser/${id}`,
+    url: `http://${domain}/admin/deleteUser/${id}`,
     headers: {
       Authorization: `Bearer ${token}`
     },
@@ -45,7 +46,7 @@ export const deleteUser = async (id, token) => {
 export const addStaff = async (formValue, token) => {
   const res = await axios({
     method: "post",
-    url: `http://localhost:3001/admin/addStaff`,
+    url: `http://${domain}/admin/addStaff`,
     data: formValue,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -57,7 +58,7 @@ export const addStaff = async (formValue, token) => {
 export const getAllAttribute = async (token) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/product/getAllAttribute`,
+    url: `http://${domain}/product/getAllAttribute`,
     headers: { Authorization: `Bearer ${token}` },
   });
   return res.data;
@@ -67,7 +68,7 @@ export const getAllAttribute = async (token) => {
 export const addAttribute = async (formValue, token) => {
   const res = await axios({
     method: "post",
-    url: `http://localhost:3001/product/addAttribute`,
+    url: `http://${domain}/product/addAttribute`,
     data: formValue,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -80,7 +81,7 @@ export const addAttribute = async (formValue, token) => {
 export const deleteAttribute = async (id, token) => {
   const res = await axios({
     method: "delete",
-    url: `http://localhost:3001/product/deleteAttribute/${id}`,
+    url: `http://${domain}/product/deleteAttribute/${id}`,
     headers: {
       Authorization: `Bearer ${token}`
     },
@@ -90,7 +91,7 @@ export const deleteAttribute = async (id, token) => {
 export const editAttribute = async (id, formValue, token) => {
   const res = await axios({
     method: "patch",
-    url: `http://localhost:3001/product/editAttribute/${id}`,
+    url: `http://${domain}/product/editAttribute/${id}`,
     data: formValue,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -103,7 +104,7 @@ export const editAttribute = async (id, formValue, token) => {
 export const addProduct = async (formValue, token) => {
   const res = await axios({
     method: "post",
-    url: `http://localhost:3001/product/addProduct`,
+    url: `http://${domain}/product/addProduct`,
     data: formValue,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -116,7 +117,7 @@ export const addProduct = async (formValue, token) => {
 export const editProduct = async (id, formValue, token) => {
   const res = await axios({
     method: "patch",
-    url: `http://localhost:3001/product/editProduct/${id}`,
+    url: `http://${domain}/product/editProduct/${id}`,
     data: formValue,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -129,7 +130,7 @@ export const editProduct = async (id, formValue, token) => {
 export const deleteProduct = async (id, token) => {
   const res = await axios({
     method: "delete",
-    url: `http://localhost:3001/product/deleteProduct/${id}`,
+    url: `http://${domain}/product/deleteProduct/${id}`,
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -140,7 +141,7 @@ export const deleteProduct = async (id, token) => {
 export const addCategory = async (formValue, token) => {
   const res = await axios({
     method: "post",
-    url: `http://localhost:3001/product/addCategory`,
+    url: `http://${domain}/product/addCategory`,
     data: formValue,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -153,7 +154,7 @@ export const addCategory = async (formValue, token) => {
 export const editCategory = async (id, formValue, token) => {
   const res = await axios({
     method: "patch",
-    url: `http://localhost:3001/product/editCategory/${id}`,
+    url: `http://${domain}/product/editCategory/${id}`,
     data: formValue,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -166,7 +167,7 @@ export const editCategory = async (id, formValue, token) => {
 export const deleteCategory = async (id, token) => {
   const res = await axios({
     method: "delete",
-    url: `http://localhost:3001/product/deleteCategory/${id}`,
+    url: `http://${domain}/product/deleteCategory/${id}`,
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -176,7 +177,7 @@ export const deleteCategory = async (id, token) => {
 export const getOrderByStatus = async (status, token) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/order/getOrderByStatus/${status}`,
+    url: `http://${domain}/order/getOrderByStatus/${status}`,
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -186,7 +187,7 @@ export const getOrderByStatus = async (status, token) => {
 export const getOrderAdmin = async (userId, token) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/order/getOrderAdmin/${userId}`,
+    url: `http://${domain}/order/getOrderAdmin/${userId}`,
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -196,7 +197,7 @@ export const getOrderAdmin = async (userId, token) => {
 export const viewDetailOrder = async (token, orderId) => {
   const res = await axios({
     method: "get",
-    url: `http://localhost:3001/order/viewDetailOrder/${orderId}`,
+    url: `http://${domain}/order/viewDetailOrder/${orderId}`,
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -206,7 +207,7 @@ export const viewDetailOrder = async (token, orderId) => {
 export const setOrderStatus = async (orderId, status , token) => {
   const res = await axios({
     method: "patch",
-    url: `http://localhost:3001/order/setStatus/${orderId}/${status}`,
+    url: `http://${domain}/order/setStatus/${orderId}/${status}`,
     headers: {
       Authorization: `Bearer ${token}`,
     }
@@ -216,7 +217,7 @@ export const setOrderStatus = async (orderId, status , token) => {
 export const deleteOrder = async (token, id) => {
   const res = await axios({
     method: "delete",
-    url: `http://localhost:3001/order/deleteOrder/${id}`,
+    url: `http://${domain}/order/deleteOrder/${id}`,
     headers: {
       Authorization: `Bearer ${token}`,
     },

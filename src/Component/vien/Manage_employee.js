@@ -34,36 +34,36 @@ function Manage_employee() {
   };
 
   const handleShowForm = async () => {
-    await setShowForm(true);
+     setShowForm(true);
   }
   
   const showEditForm = async () => {
-    await setShowEditInfo(true);
+     setShowEditInfo(true);
   }
   
   const handleShowDeleteForm = async (id) => {
-    await setSelectedEmployeeId(id);
-    await setShowDeleteForm(true);
+    setSelectedEmployeeId(id);
+     setShowDeleteForm(true);
   }
   
   const handleInfoForm = async (id) => {
-    await setSelectedEmployeeId1(id);
-    await setShowInfoForm(true);
+     setSelectedEmployeeId1(id);
+     setShowInfoForm(true);
   }
   
   const showLogOutForm = async () => {
-    await setShowLogOut(true);
+     setShowLogOut(true);
   }
 
   const [data, setData] = useState([]);
   useEffect(async () => {
     try {
       const res = await getAllStaff(localStorage.getItem('token'));
+      const data = res.data;
       console.log(res);
-      if (res && Array.isArray(res)) {
-        setData(res);
-        console.log("aaaa111");
-        console.log(data);
+      if (data && Array.isArray(data)) {
+        setData(data);
+     
       }
     } catch (error) {
       console.log(error);
@@ -78,7 +78,7 @@ function Manage_employee() {
     pageNumbers.push(i);
   }
   localStorage.setItem('tag', 5);
-  if (Number(localStorage.getItem("isAdmin"))===1)
+  if (localStorage.getItem("role")==="admin")
   return (
     <div>
       <HeaderAdmin/>
@@ -107,7 +107,7 @@ function Manage_employee() {
                 {console.log(showForm)}
                 {showForm && (
                   <AddEmployeeForm
-                    setDataa={setData}
+                    setData={setData}
                     setShowForm={setShowForm}
                   />
                 )}

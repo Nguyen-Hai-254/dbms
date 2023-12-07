@@ -64,24 +64,26 @@ function ShowDeliver(props) {
     const fetchData = async () => {
       try {
         const res = await getOrderByStatus("Delivery", localStorage.getItem('token'));
-        console.log(res);
-        if (res && Array.isArray(res)) {
-          setData(res);
+        const data=res.data;
+        console.log(data);
+        if (data && Array.isArray(data)) {
+          setData(data);
           
-          const customerInfoPromises = res.map(async (order) => {
+          const customerInfoPromises = data.map(async (order) => {
             const userInfo = await getUser(order.user_id, localStorage.getItem('token'));
+            const userData=userInfo.data;
             return {
               id: order.user_id,
-              name: userInfo[0].name,
-              phone: userInfo[0].phone,
-              email: userInfo[0].email,
-              address: userInfo[0].address
+              name: userData.name,
+              phone: userData.phone,
+              email: userData.email,
+              address: userData.address
             };
           });
   
-          const detailOrderPromises = res.map(async (order) => {
+          const detailOrderPromises = data.map(async (order) => {
             const detail = await viewDetailOrder(localStorage.getItem('token'), order.id);
-            return detail;
+            return detail.data.order_detail;
           });
   
           const customerInfo = await Promise.all(customerInfoPromises);
@@ -98,40 +100,43 @@ function ShowDeliver(props) {
     fetchData();
   }, []);
   
-  useEffect(() => {
-    const updateProductInfo = async () => {
-      try {
-        const updatedDetailOrder = detailOrder.map(async (order) => {
-          for (const item of order) {
-            const productInfo = await getProductById(item.product_id);
-            if (productInfo) {
-              const updatedItem = {
-                ...item,
-                product_name: productInfo.data.name,
-                product_price: productInfo.data.price* (100-productInfo.data.sale_percent)/100
-              };
-              const index = order.findIndex((detail) => detail.product_id === item.product_id);
-              if (index !== -1) {
-                order[index] = updatedItem;
-              }
-            }
-          }
-          return order;
-        });
+  // useEffect(() => {
+  //   const updateProductInfo = async () => {
+  //     try {
+  //       const updatedDetailOrder = detailOrder.map(async (order) => {
+  //         for (const item of order) {
+  //           const productInfo = await getProductById(item.product_id);
+  //           if (productInfo) {
+  //             const updatedItem = {
+  //               ...item,
+  //               product_name: productInfo.data.name,
+  //               product_price: productInfo.data.price* (100-productInfo.data.sale_percent)/100
+  //             };
+  //             const index = order.findIndex((detail) => detail.product_id === item.product_id);
+  //             if (index !== -1) {
+  //               order[index] = updatedItem;
+  //             }
+  //           }
+  //         }
+  //         return order;
+  //       });
   
-        const updatedOrders = await Promise.all(updatedDetailOrder);
-        setDetailOrder(updatedOrders);
-      } catch (error) {
-        console.error('Error updating product info:', error);
-      }
-    };
+  //       const updatedOrders = await Promise.all(updatedDetailOrder);
+  //       setDetailOrder(updatedOrders);
+  //     } catch (error) {
+  //       console.error('Error updating product info:', error);
+  //     }
+  //   };
   
-    if (detailOrder.length > 0) {
-      updateProductInfo();
-    }
-  });
+  //   if (detailOrder.length > 0) {
+  //     updateProductInfo();
+  //   }
+  // });
   
-
+  const calculateTotalPrice = (detailOrder)=>{
+    console.log(detailOrder)
+   return detailOrder.reduce((total, order) => total + order.price, 0).toLocaleString();
+  }
   return (
     <div style={{ padding: "0px" }}>
       <HeaderAdmin/>
@@ -204,17 +209,17 @@ function ShowDeliver(props) {
                     <tbody>
                       {detailOrder[index].map((detail) => (
                         <tr>
-                          <td>{detail.product_name}</td>
-                          <td>{detail.product_price?detail.product_price.toLocaleString():''}</td>
+                          <td>{detail.name}</td>
+                          <td>{detail.price?detail.price.toLocaleString():''}</td>
                           <td>{detail.count}</td>
                         </tr>
                       ))}
                     </tbody>
                     )}
                   </Table>
-
+                
                   <div style={{ position: "absolute", right: "16px" }}>
-                    <p style={{fontWeight: "bold", fontSize: "20px"}}>Tổng tiền: {staff.sum_price.toLocaleString()}</p>
+                    {detailOrder[index]&&<p style={{fontWeight: "bold", fontSize: "20px"}}>Tổng tiền: {calculateTotalPrice(detailOrder[index])}</p>}
                       <div style={{display: "flex", flexDirection: "row", gap: "20px"}}>
                       <Button variant="success" href="/adm_man_delivered" onClick={() => handleConfirm(staff.id)} disabled={loading}>Xác nhận</Button>
                       <Button variant="danger" onClick={() => deleteOrderr(staff.id)}>Hủy bỏ</Button>

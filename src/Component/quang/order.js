@@ -10,12 +10,12 @@ import Button from "react-bootstrap/Button";
 import Nav from "react-bootstrap/Nav";
 import HeaderAdmin from '../vien/HeaderAdmin';
 import Left from '../vien/Left';
-import {getOrderByStatus} from '../../api/adminApi'
-import {getUser} from '../../api/adminApi'
-import {viewDetailOrder} from '../../api/adminApi'
-import {getProductById} from '../../api/userApi'
-import {setOrderStatus} from '../../api/adminApi'
-import {deleteOrder} from '../../api/adminApi'
+import { getOrderByStatus } from '../../api/adminApi'
+import { getUser } from '../../api/adminApi'
+import { viewDetailOrder } from '../../api/adminApi'
+import { getProductById } from '../../api/userApi'
+import { setOrderStatus } from '../../api/adminApi'
+import { deleteOrder } from '../../api/adminApi'
 function ShowOrder(props) {
   const [order, setOrder] = useState([]);
   const [customerInfo, setCustomerInfo] = useState([]);
@@ -41,13 +41,14 @@ function ShowOrder(props) {
       setLoading(false);
     }
   };
+
   const deleteOrderr = async (id) => {
     try {
       const orderId = id; // Thay YOUR_ORDER_ID bằng ID của đơn hàng bạn muốn chuyển trạng thái
       const token = localStorage.getItem('token'); // Thay YOUR_TOKEN bằng token của bạn
 
       // Gọi API setOrderStatus
-      await deleteOrder(token,orderId);
+      await deleteOrder(token, orderId);
       const res = await getOrderByStatus("Confirm", localStorage.getItem('token'));
       console.log(res);
       setOrder(res);
@@ -59,23 +60,24 @@ function ShowOrder(props) {
     } finally {
     }
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await getOrderByStatus("Confirm", localStorage.getItem('token'));
-        const data=res.data;
+        const data = res.data;
         console.log(data);
         if (data && Array.isArray(data)) {
           console.log("is array")
           setOrder(data);
           console.log(order)
 
-         
+
           const customerInfoPromises = data.map(async (order) => {
             console.log("this is check")
             console.log(order)
             const userInfo = await getUser(order.user_id, localStorage.getItem('token'));
-            const userData=userInfo.data;
+            const userData = userInfo.data;
             return {
               id: order.user_id,
               name: userData.name,
@@ -84,19 +86,19 @@ function ShowOrder(props) {
               address: userData.address
             };
           });
-  
+
           const detailOrderPromises = data.map(async (order) => {
             const detail = await viewDetailOrder(localStorage.getItem('token'), order.id);
             return detail.data.order_detail;
           });
-  
+
           const customerInfo = await Promise.all(customerInfoPromises);
-       
+
           setCustomerInfo(customerInfo);
           console.log(customerInfo);
-         
+
           const detailOrder = await Promise.all(detailOrderPromises);
-          
+
           setDetailOrder(detailOrder);
           console.log(detailOrder)
         }
@@ -104,10 +106,10 @@ function ShowOrder(props) {
         console.error('Error:', error);
       }
     };
-  
+
     fetchData();
   }, []);
-  
+
   // useEffect(() => {
   //   const updateProductInfo = async () => {
   //     try {
@@ -130,28 +132,28 @@ function ShowOrder(props) {
   //           return order;
   //         })
   //       );
-  
+
   //       setDetailOrder(updatedDetailOrder);
   //     } catch (error) {
   //       console.error('Error updating product info:', error);
   //     }
   //   };
-  
+
   //   if (detailOrder.length > 0) {
   //     updateProductInfo();
   //   }
   // }, [detailOrder]);
-  const calculateTotalPrice = (detailOrder)=>{
+  const calculateTotalPrice = (detailOrder) => {
     console.log(detailOrder)
-   return detailOrder.reduce((total, order) => total + order.price, 0).toLocaleString();
+    return detailOrder.reduce((total, order) => total + order.price, 0).toLocaleString();
   }
   return (
     <div style={{ padding: "0px" }}>
-      <HeaderAdmin/>
+      <HeaderAdmin />
       <Container style={{ margin: "0px", maxWidth: "100%" }}>
         <Row style={{ width: "100%" }}>
           <Col md={2}>
-          <Left/>
+            <Left />
           </Col>
           <Col md={10}>
             <div class="manage_search">
@@ -177,66 +179,66 @@ function ShowOrder(props) {
             </div>
 
             <Container>
-            {order.map((staff,index) => (
-              <Row style={{backgroundColor: "lightgrey", marginBottom: "60px", height: "350px", borderRadius: "20px"}}>
-                <Col md={6}>
-                  <div key={index} style={{padding: "20px 5px"}}>
-                    {customerInfo[index] && (
-                      <div>
-                        <span style={{ fontWeight: "bold", fontStyle: "italic" }}>
-                          Tên khách hàng:
-                        </span>{" "}
-                        {customerInfo[index].name} <br />
-                        <span style={{ fontWeight: "bold", fontStyle: "italic" }}>
-                          Số điện thoại:
-                        </span>{" "}
-                        {customerInfo[index].phone} <br />
-                        <span style={{ fontWeight: "bold", fontStyle: "italic" }}>
-                          Email:
-                        </span>{" "}
-                        {customerInfo[index].email} <br />
-                        <span style={{ fontWeight: "bold", fontStyle: "italic" }}>
-                          Địa chỉ:
-                        </span>{" "}
-                        {customerInfo[index].address} <br />
+              {order.map((staff, index) => (
+                <Row style={{ backgroundColor: "lightgrey", marginBottom: "60px", height: "350px", borderRadius: "20px" }}>
+                  <Col md={6}>
+                    <div key={index} style={{ padding: "20px 5px" }}>
+                      {customerInfo[index] && (
+                        <div>
+                          <span style={{ fontWeight: "bold", fontStyle: "italic" }}>
+                            Tên khách hàng:
+                          </span>{" "}
+                          {customerInfo[index].name} <br />
+                          <span style={{ fontWeight: "bold", fontStyle: "italic" }}>
+                            Số điện thoại:
+                          </span>{" "}
+                          {customerInfo[index].phone} <br />
+                          <span style={{ fontWeight: "bold", fontStyle: "italic" }}>
+                            Email:
+                          </span>{" "}
+                          {customerInfo[index].email} <br />
+                          <span style={{ fontWeight: "bold", fontStyle: "italic" }}>
+                            Địa chỉ:
+                          </span>{" "}
+                          {customerInfo[index].address} <br />
+                        </div>
+                      )}
+                    </div>
+                  </Col>
+                  <Col style={{ position: "relative" }}>
+                    <div key={index}>
+                      <Table striped bordered hover size="sm" style={{ textAlign: "center", marginTop: "16px", border: "1px" }}>
+                        <thead>
+                          <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá tiền</th>
+                            <th>Số lượng</th>
+                          </tr>
+                        </thead>
+                        {console.log(detailOrder[index])}
+                        {detailOrder[index] && (
+                          <tbody>
+                            {detailOrder[index].map((detail) => (
+                              <tr>
+                                <td>{detail.name}</td>
+                                <td>{detail.price ? detail.price.toLocaleString() : ''}</td>
+                                <td>{detail.count}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        )}
+                      </Table>
+                      {/* {staff.sum_price.toLocaleString()} */}
+                      <div style={{ position: "absolute", right: "16px" }}>
+                        {detailOrder[index] && <p style={{ fontWeight: "bold", fontSize: "20px" }}>Tổng tiền:{calculateTotalPrice(detailOrder[index])} </p>}
+                        <div style={{ display: "flex", flexDirection: "row", gap: "20px" }}>
+                          <Button variant="success" href="/adm_man_deliver" onClick={() => handleConfirm(staff.id)} disabled={loading}>Xác nhận</Button>
+                          <Button variant="danger" onClick={() => deleteOrderr(staff.id)}>Hủy bỏ</Button>
+                        </div>
                       </div>
-                    )}
-                  </div>         
-                </Col>
-                <Col style={{ position: "relative" }}>
-                <div key={index}>
-                  <Table striped bordered hover size="sm" style={{ textAlign: "center", marginTop: "16px", border: "1px" }}>
-                    <thead>
-                      <tr>
-                        <th>Tên sản phẩm</th>
-                        <th>Giá tiền</th>
-                        <th>Số lượng</th>
-                      </tr>
-                    </thead>
-                    {console.log(detailOrder[index])}
-                    {detailOrder[index] && (
-                    <tbody>
-                      {detailOrder[index].map((detail) => (
-                        <tr>
-                          <td>{detail.name}</td>
-                          <td>{detail.price? detail.price.toLocaleString():''}</td>
-                          <td>{detail.count}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                    )}
-                  </Table>
-                  {/* {staff.sum_price.toLocaleString()} */}
-                  <div style={{ position: "absolute", right: "16px" }}>
-                   {detailOrder[index] && <p style={{fontWeight: "bold", fontSize: "20px"}}>Tổng tiền:{calculateTotalPrice(detailOrder[index])} </p>}
-                      <div style={{display: "flex", flexDirection: "row", gap: "20px"}}>
-                      <Button variant="success" href="/adm_man_deliver" onClick={() => handleConfirm(staff.id)} disabled={loading}>Xác nhận</Button>
-                      <Button variant="danger" onClick={() => deleteOrderr(staff.id)}>Hủy bỏ</Button>
-                      </div>
-                  </div>
-                </div>
-                </Col>
-              </Row>
+                    </div>
+                  </Col>
+                </Row>
               ))}
             </Container>
 

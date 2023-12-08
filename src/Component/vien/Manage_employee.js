@@ -16,7 +16,7 @@ function Manage_employee() {
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
   const [selectedEmployeeId1, setSelectedEmployeeId1] = useState(null);
   const [showLogOut, setShowLogOut] = useState(false);
-  
+  const [reload,setReload] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
 
@@ -25,11 +25,14 @@ function Manage_employee() {
     const token = localStorage.getItem('token');
     if (phone === "") {
       const res = await getAllStaff(token);
-      setData(res);
+      setData(res.data);
     }
     else{
       const res = await getUserByPhone(token, phone);
-      setData(res);
+      if(res.data!=undefined)
+      setData([res.data]);
+      else
+      setData([]);
     }
   };
 
@@ -47,6 +50,7 @@ function Manage_employee() {
   }
   
   const handleInfoForm = async (id) => {
+    console.log("ID: "+id)
      setSelectedEmployeeId1(id);
      setShowInfoForm(true);
   }
@@ -54,7 +58,6 @@ function Manage_employee() {
   const showLogOutForm = async () => {
      setShowLogOut(true);
   }
-
   const [data, setData] = useState([]);
   useEffect(async () => {
     try {
@@ -107,7 +110,7 @@ function Manage_employee() {
                 {console.log(showForm)}
                 {showForm && (
                   <AddEmployeeForm
-                    setData={setData}
+                    setData2={setData}
                     setShowForm={setShowForm}
                   />
                 )}
@@ -150,6 +153,8 @@ function Manage_employee() {
                         setShowDeleteForm={setShowDeleteForm}
                         Id_emp={staff.id}
                         setData={setData}
+                        setReload={setReload}
+                    
                       />
                     )}
                     {showInfoForm && selectedEmployeeId1 === staff.id && (
@@ -157,6 +162,7 @@ function Manage_employee() {
                         showInfoForm={showInfoForm}
                         setShowInfoForm={setShowInfoForm}
                         Id_emp={staff.id}
+                       
                       />
                     )}
                   </tr>

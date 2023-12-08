@@ -4,7 +4,7 @@ import {deleteUser} from '../../api/adminApi';
 import {getAllStaff} from '../../api/adminApi';
 import '../../css/vien/DeleteEmployee.css'
 
-function DeleteEmployee({showDeleteForm,setShowDeleteForm,Id_emp,setData}) {
+function DeleteEmployee({showDeleteForm,setShowDeleteForm,Id_emp,setData, setReload,reload}) {
   const [user, setUser] = useState(null);
   useEffect(() => {
     console.log("check use effect")
@@ -22,9 +22,10 @@ function DeleteEmployee({showDeleteForm,setShowDeleteForm,Id_emp,setData}) {
       setShowDeleteForm(false);
       getAllStaff(localStorage.getItem('token'))
       .then(res => {
-        if (res && Array.isArray(res)) {
-          setData(res);
+        if (res.data && Array.isArray(res.data)) {
+          setData(res.data);
         }
+
       })
       .catch(error => {
         console.log(error);

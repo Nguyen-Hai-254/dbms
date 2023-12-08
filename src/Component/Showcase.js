@@ -8,8 +8,9 @@ const Phones = (props) => {
   return (
     <>
       <Header handleItem={props.setPhone} />
-      <h1 className='text-center m-1'>Display of products</h1>
-      <div>
+      {/* <h1 className='text-center m-1 bg-light'>Display of products</h1> */}
+
+      <div style={{backgroundColor:'#F3F3F3'}}>
         <div class="row justify-content-center align-items-center g-2">
           <div class="col-4">
             {props.phone.map((phone, key) => (

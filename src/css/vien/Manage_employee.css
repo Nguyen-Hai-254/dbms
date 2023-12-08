@@ -39,7 +39,9 @@
     height: 30px !important;
     border-radius: 20px;
 }
-
+.manage-employee {
+    background: #647690 !important;
+}
 @media only screen and (max-width: 600px) {
     .table-container {
         overflow-x: auto !important;

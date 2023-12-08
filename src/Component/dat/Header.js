@@ -7,6 +7,7 @@ function Header(props) {
     let cartItems = JSON.parse(localStorage.getItem('cart'));
     if (!cartItems) {
         localStorage.setItem('cart', JSON.stringify([]));
+        cartItems = [];
     }
     localStorage.setItem("numberItem",
     cartItems.reduce(function(total, obj) {
@@ -26,7 +27,7 @@ function Header(props) {
     const handeLogout=()=>{
         localStorage.removeItem("name");
         localStorage.removeItem("token");
-        localStorage.removeItem("isAdmin");
+        localStorage.removeItem("role");
         localStorage.removeItem("user_id");
         localStorage.removeItem("userId");
         localStorage.removeItem("tag");
@@ -38,11 +39,12 @@ function Header(props) {
     }
     function search(){
         searchItem(searchContent).then((rs)=>{
+            console.log(props);
             props.handleItem(rs.data);
         })
     }
   return (
-    <div className="bg-info header d-flex justify-content-center text-white ">
+    <div className="bg-info header d-flex justify-content-center  bg-warning text-white " >
         <div className="container container-header">
             <div className="row d-flex" >
                 <div className="col-4 d-flex justify-content-start">
@@ -75,9 +77,9 @@ function Header(props) {
                 
             </div>
             <div className="row mt-3 d-flex justify-content-center">
-                <div onClick={()=>{navigate('/')}} className="col-4 fs-3 header-name-shop text-end">
+                <div  onClick={()=>{navigate('/')}} className="col-4 fs-3 header-name-shop text-end">
                     <img src={logo} alt="" width="45px" />
-                    Easyelectronics
+                    BKelectronics
                 </div>
                 <div className="col-6 ">
                     <div className="input-group ">
@@ -106,10 +108,10 @@ function Header(props) {
                 <div className="col-1 d-hover-btn" onClick={()=>{navigate('/cellphones')}}>Phone</div>
                 <div className="col-1 d-hover-btn" onClick={()=>{navigate('/laptop')}}>Laptop</div>
                 <div className="col-1 d-hover-btn" onClick={()=>{navigate('/ipad')}}>Tablet</div>
-                <div className="col-1 d-hover-btn">Accessory</div>
+                {/* <div className="col-1 d-hover-btn">Accessory</div> */}
                 <div className="col-1 d-hover-btn" onClick={()=>{navigate('/watch')}}>SmartWatch</div>
-                <div className="col-1 d-hover-btn">Clock</div>
-                <div className="col-2 d-hover-btn">Sims,Scratch Cards</div>
+                {/* <div className="col-1 d-hover-btn">Clock</div>
+                <div className="col-2 d-hover-btn">Sims,Scratch Cards</div> */}
             </div>
         </div>
     </div>  

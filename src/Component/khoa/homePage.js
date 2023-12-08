@@ -268,7 +268,8 @@ We understand that every individual has unique needs, which is why our watches r
       <div class="row justify-content-center align-items-center g-2">
         <div class="col-3">
           <h6>Please give use your feedback!</h6>
-          <Contact/></div>
+          <Contact/>
+        </div>
       </div>
         
         <Footer/>

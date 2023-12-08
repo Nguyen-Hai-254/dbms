@@ -113,8 +113,6 @@ function Manage_user() {
                                     />
                                     <input
                                         className="fill_telephone1"
-                                        // type="number"
-                                        // id="phone-input"
                                         placeholder="Enter a min order value"
                                         value={minOrderValue}
                                         onChange={(e) => setMinOrderValue(e.target.value)}
@@ -122,7 +120,6 @@ function Manage_user() {
                                     <input
                                         className="fill_telephone1"
                                         type="date"
-                                        // id="phone-input"
                                         placeholder="Start time"
                                         value={startTime}
                                         onChange={(e) => setStartTime(e.target.value)}
@@ -130,7 +127,6 @@ function Manage_user() {
                                     <input
                                         className="fill_telephone1"
                                         type="date"
-                                        // id="phone-input"
                                         placeholder="End time"
                                         value={endTime}
                                         onChange={(e) => setEndTime(e.target.value)}
@@ -140,7 +136,7 @@ function Manage_user() {
                                     </button>
                                 </div>
                             </div>
-                            <Table striped bordered hover className="table-container">
+                            <Table striped bordered hover className="table-container admin-table ">
                                 <thead>
                                     <tr>
                                         <th>Full name</th>
@@ -156,65 +152,65 @@ function Manage_user() {
                                             <td>{staff.email}</td>
                                             <td>{staff.phone}</td>
                                             <td>
-                                                <a href="/adm_man_order">
-                                                    <button
-                                                        type="button"
-                                                        className="btn btn-info dieu_chinh"
-                                                        onClick={() => handleOrder(staff.id)}
-                                                    >
-                                                        Show orders
-                                                    </button>
-                                                </a>
+                                                <a href={`/adm_order_by_user/${staff.id}`} user={staff}>
                                                 <button
                                                     type="button"
-                                                    className="btn btn-success dieu_chinh"
-                                                    onClick={() => handleInfoForm(staff.id)}
+                                                    className="btn btn-info dieu_chinh"
+                                                    // onClick={() => handleOrder(staff.id)}
                                                 >
-                                                    Show info
+                                                    Show orders
                                                 </button>
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-danger dieu_chinh"
-                                                    onClick={() => handleShowDeleteForm(staff.id)}
-                                                >
-                                                    Delete
-                                                </button>
-                                            </td>
-                                            {showDeleteForm && selectedEmployeeId === staff.id && (
-                                                <DeleteUser
-                                                    showDeleteForm={showDeleteForm}
-                                                    setShowDeleteForm={setShowDeleteForm}
-                                                    Id_emp={staff.id}
-                                                />
-                                            )}
-                                            {showInfoForm && selectedEmployeeId1 === staff.id && (
-                                                <InfoUser
-                                                    showInfoForm={showInfoForm}
-                                                    setShowInfoForm={setShowInfoForm}
-                                                    Id_emp={staff.id}
-                                                />
-                                            )}
-                                        </tr>
+                                            </a>
+                                            <button
+                                                type="button"
+                                                className="btn btn-success dieu_chinh"
+                                                onClick={() => handleInfoForm(staff.id)}
+                                            >
+                                                Show info
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="btn btn-danger dieu_chinh"
+                                                onClick={() => handleShowDeleteForm(staff.id)}
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                            { showDeleteForm && selectedEmployeeId === staff.id && (
+                                            <DeleteUser
+                                                showDeleteForm={showDeleteForm}
+                                                setShowDeleteForm={setShowDeleteForm}
+                                                Id_emp={staff.id}
+                                            />
+                                        )}
+                                    {showInfoForm && selectedEmployeeId1 === staff.id && (
+                                        <InfoUser
+                                            showInfoForm={showInfoForm}
+                                            setShowInfoForm={setShowInfoForm}
+                                            Id_emp={staff.id}
+                                        />
+                                    )}
+                                </tr>
                                     ))}
-                                </tbody>
-                            </Table>
-                            <div className="paging">
-                                {pageNumbers.map((number) => {
-                                    return (
-                                        <button
-                                            key={number}
-                                            onClick={() => setCurrentPage(number)}
-                                            className={currentPage === number ? "current" : ""}
-                                        >
-                                            {number}
-                                        </button>
-                                    );
-                                })}
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
+                            </tbody>
+                        </Table>
+                        <div className="paging">
+                            {pageNumbers.map((number) => {
+                                return (
+                                    <button
+                                        key={number}
+                                        onClick={() => setCurrentPage(number)}
+                                        className={currentPage === number ? "current" : ""}
+                                    >
+                                        {number}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
+            </div >
         )
     else {
         return (

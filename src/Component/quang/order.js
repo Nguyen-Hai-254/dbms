@@ -230,7 +230,7 @@ function ShowOrder(props) {
                       </Table>
                       {/* {staff.sum_price.toLocaleString()} */}
                       <div style={{ position: "absolute", right: "16px" }}>
-                        {detailOrder[index] && <p style={{ fontWeight: "bold", fontSize: "20px" }}>Tổng tiền:{calculateTotalPrice(detailOrder[index])} </p>}
+                        {detailOrder[index] && <p style={{ fontWeight: "bold", fontSize: "20px" }}>Tổng tiền: {calculateTotalPrice(detailOrder[index])} </p>}
                         <div style={{ display: "flex", flexDirection: "row", gap: "20px" }}>
                           <Button variant="success" href="/adm_man_deliver" onClick={() => handleConfirm(staff.id)} disabled={loading}>Xác nhận</Button>
                           <Button variant="danger" onClick={() => deleteOrderr(staff.id)}>Hủy bỏ</Button>

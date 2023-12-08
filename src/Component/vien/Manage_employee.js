@@ -116,7 +116,7 @@ function Manage_employee() {
                 )}
               </div>
             </div>
-            <Table striped bordered hover className="table-container">
+            <Table striped bordered hover className="table-container employee-table">
               <thead>
                 <tr>
                   <th>Full name</th>

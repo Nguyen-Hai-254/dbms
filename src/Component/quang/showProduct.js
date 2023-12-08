@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import AddProductForm from './addProductForm'
-import { getProductByCategory, getAllProduct } from "../../api/userApi";
+import { getProductByCategory, getAllProduct, searchItem } from "../../api/userApi";
 import './showProduct.css'
 import ViewProduct from "./viewProduct/viewProduct";
 import HeaderAdmin from '../vien/HeaderAdmin';
@@ -16,19 +16,25 @@ function ShowProduct() {
   ]);
 
   const [query, setQuery] = useState("");
+  const [reload,setReload] = useState(false);
 
-  const handleSearch = () => {
-    const filteredLinks = links.filter(link =>
-      link.title.toLowerCase().includes(query.toLowerCase())
-    );
+  const handleSearch = async() => {
+    // const filteredLinks = links.filter(link =>
+    //   link.title.toLowerCase().includes(query.toLowerCase())
+    // );
 
-    if (filteredLinks.length > 0) {
-      const firstLink = filteredLinks[0];
-      window.location.href = firstLink.url;
-    }
+    // if (filteredLinks.length > 0) {
+    //   const firstLink = filteredLinks[0];
+    //   window.location.href = firstLink.url;
+    // }
+    let searchProduct = await searchItem(query);
+    // console.log(searchProduct);
+    setData(searchProduct.data)
+
   };
 
   const handleKeyPress = (event) => {
+    console.log("keyPress")
     if (event.key === 'Enter') {
       handleSearch();
     }
@@ -55,7 +61,7 @@ function ShowProduct() {
       let allProduct = await getAllProduct();
       setData(allProduct.data);
     })();
-  }, [state]);
+  }, [state,reload]);
   let product = data.map((element) =>
     <ViewProduct price={element.price} image={element.image} sale_percent={element.sale_percent} name={element.name} setEditForm={setEditForm} />
   );
@@ -103,7 +109,7 @@ function ShowProduct() {
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    onKeyPress={handleKeyPress}
+                    onKeyUp={handleKeyPress}
                     className="fill_name"
                     placeholder="Nhập tên sản phẩm"
                   />
@@ -113,7 +119,7 @@ function ShowProduct() {
                   <button class="btn btn-primary" onClick={handleShowForm}>
                     Thêm sản phẩm
                   </button>
-                  {showForm && <AddProductForm setShowForm={setShowForm} />}
+                  {showForm && <AddProductForm setShowForm={setShowForm} setReload={setReload} reload={reload}/>}
                   {/* {showEditForm && <EditProductForm setShowForm={setShowForm} />} */}
                 </div>
               </div>

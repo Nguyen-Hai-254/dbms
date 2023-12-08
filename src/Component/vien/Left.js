@@ -11,7 +11,7 @@ function Left() {
 
   return (
     <div>
-        <div style={{backgroundColor: 'rgba(243, 244, 246, 1)',height:'100%', position:'relative'}}>
+        <div style={{backgroundColor: '#F3F3F3',height:'100%', position:'relative'}}>
             <div class="image_info_arrow">
             <div class="image_info">
                 <div class="image">

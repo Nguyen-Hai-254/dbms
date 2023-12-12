@@ -56,7 +56,7 @@ function App() {
   const [watch, setWatch] = useState([]);
   const [ipad, setIpad] = useState([]);
   const [cartItems, setCartItems] = useState([]);
-  const user = useState();
+  const [user, setUser] = useState();
   useEffect(() => {
     (async () => {
       getProductByCategory("CellPhone")
@@ -174,7 +174,8 @@ function App() {
           <Route path="/adm_man_product" element={<ShowProduct />} />
           <Route path="/cellphones" element={<Showcase phone={phone} setPhone={setPhone} />} />
           <Route path="/adm_man_order" element={<ShowOrder />} />
-          <Route path="/adm_order_by_user/:userId" element={<OrderByUser user={user} />} />
+          <Route path="/adm_order_by_user/:userId" element={<OrderByUser user={user} setUser={setUser} />} />
+          {/* <Route path="/adm_order_by_user/:userId" render={(props) => <OrderByUser {...props}/>}/> */}
           <Route path="/adm_man_deliver" element={<ShowDeliver />} />
           <Route path="/adm_man_delivered" element={<ShowDelivered />} />
           {/* <Route path="/cellphones/:id"  element={<ProductDetail phone={phone}/>}/> */}

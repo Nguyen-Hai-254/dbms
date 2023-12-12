@@ -252,6 +252,9 @@ export const getOrderByUser = async (token, userId, status) => {
     const res = await axios({
         method: "get",
         url: `http://${domain}/order/getOrderAdmin/${userId}`,
+        params: {
+            status: status
+        },
         headers: {
             Authorization: `Bearer ${token}`,
         }

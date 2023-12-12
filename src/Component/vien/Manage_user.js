@@ -1,4 +1,7 @@
 import { Table, Container, Row, Col } from "react-bootstrap";
+// import { Redirect } from 'react-router';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router'
 import { useState, useEffect } from "react";
 import '../../css/vien/Manage_user.css'
 import InfoUser from './InfoUser'
@@ -7,19 +10,20 @@ import { getAllUser, getUserByOrder } from '../../api/adminApi'
 import { getUserByPhone } from '../../api/adminApi'
 import HeaderAdmin from "./HeaderAdmin";
 import Left from './Left'
+
+
 function Manage_user() {
     const [data, setData] = useState([]);
     const [showDeleteForm, setShowDeleteForm] = useState(false);
     const [showInfoForm, setShowInfoForm] = useState(false);
     const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
     const [selectedEmployeeId1, setSelectedEmployeeId1] = useState(null);
-    // const [showLogOut, setShowLogOut] = useState(false);
-    // const [showEditInfo, setShowEditInfo] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [perPage, setPerPage] = useState(5);
     const [minOrderValue, setMinOrderValue] = useState("");
     const [startTime, setStartTime] = useState();
     const [endTime, setEndTime] = useState();
+    let navigate = useNavigate()
 
     const handleShowDeleteForm = (id) => {
         setSelectedEmployeeId(id);
@@ -27,18 +31,16 @@ function Manage_user() {
     }
     const handleOrder = (id) => {
         console.log(id);
-        localStorage.setItem('user_id', id);
+        // localStorage.setItem('user_id', id);
+        // return <Redirect to={{ pathname: '`/adm_order_by_user/${id}`', data: { id } }} />
+        // location.state = { id: id }
+        navigate(`/adm_order_by_user/${id}`, { user: id, setUser: null, state: { id: id } })
     }
     const handleInfoForm = (id) => {
         setSelectedEmployeeId1(id);
         setShowInfoForm(true);
     }
-    // const showEditForm = () => {
-    //     setShowEditInfo(true);
-    // }
-    // const showLogOutForm = () => {
-    //     setShowLogOut(true);
-    // }
+
     useEffect(() => {
         getAllUser(localStorage.getItem('token'))
             .then(res => {
@@ -70,7 +72,7 @@ function Manage_user() {
         }
         else {
             const res = await getUserByOrder(token, minOrderValue, startTime, endTime);
-            console.log("this res", res.data);
+
             if (res.data !== undefined) {
                 setData(res.data);
             }
@@ -82,10 +84,10 @@ function Manage_user() {
     const totalPage = Math.ceil(data.length / perPage);
     const indexOfLastStaff = currentPage * perPage;
     const indexOfFirstStaff = indexOfLastStaff - perPage;
-    console.log(indexOfFirstStaff);
-    console.log(indexOfLastStaff);
+    // console.log(indexOfFirstStaff);
+    // console.log(indexOfLastStaff);
     const currentStaffs = data.slice(indexOfFirstStaff, indexOfLastStaff);
-    console.log("currentStaffs", currentStaffs);
+    // console.log("currentStaffs", currentStaffs);
     const pageNumbers = [];
     for (let i = 1; i <= totalPage; i++) {
         pageNumbers.push(i);
@@ -152,64 +154,65 @@ function Manage_user() {
                                             <td>{staff.email}</td>
                                             <td>{staff.phone}</td>
                                             <td>
-                                                <a href={`/adm_order_by_user/${staff.id}`} user={staff}>
+                                                {/* <a href={`/adm_order_by_user/${staff.id}`} user={staff}> */}
+                                                <a>
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-info dieu_chinh"
+                                                        onClick={() => handleOrder(staff.id)}
+                                                    >
+                                                        Show orders
+                                                    </button>
+                                                </a>
                                                 <button
                                                     type="button"
-                                                    className="btn btn-info dieu_chinh"
-                                                    // onClick={() => handleOrder(staff.id)}
+                                                    className="btn btn-success dieu_chinh"
+                                                    onClick={() => handleInfoForm(staff.id)}
                                                 >
-                                                    Show orders
+                                                    Show info
                                                 </button>
-                                            </a>
-                                            <button
-                                                type="button"
-                                                className="btn btn-success dieu_chinh"
-                                                onClick={() => handleInfoForm(staff.id)}
-                                            >
-                                                Show info
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="btn btn-danger dieu_chinh"
-                                                onClick={() => handleShowDeleteForm(staff.id)}
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                            { showDeleteForm && selectedEmployeeId === staff.id && (
-                                            <DeleteUser
-                                                showDeleteForm={showDeleteForm}
-                                                setShowDeleteForm={setShowDeleteForm}
-                                                Id_emp={staff.id}
-                                            />
-                                        )}
-                                    {showInfoForm && selectedEmployeeId1 === staff.id && (
-                                        <InfoUser
-                                            showInfoForm={showInfoForm}
-                                            setShowInfoForm={setShowInfoForm}
-                                            Id_emp={staff.id}
-                                        />
-                                    )}
-                                </tr>
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-danger dieu_chinh"
+                                                    onClick={() => handleShowDeleteForm(staff.id)}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                            {showDeleteForm && selectedEmployeeId === staff.id && (
+                                                <DeleteUser
+                                                    showDeleteForm={showDeleteForm}
+                                                    setShowDeleteForm={setShowDeleteForm}
+                                                    Id_emp={staff.id}
+                                                />
+                                            )}
+                                            {showInfoForm && selectedEmployeeId1 === staff.id && (
+                                                <InfoUser
+                                                    showInfoForm={showInfoForm}
+                                                    setShowInfoForm={setShowInfoForm}
+                                                    Id_emp={staff.id}
+                                                />
+                                            )}
+                                        </tr>
                                     ))}
-                            </tbody>
-                        </Table>
-                        <div className="paging">
-                            {pageNumbers.map((number) => {
-                                return (
-                                    <button
-                                        key={number}
-                                        onClick={() => setCurrentPage(number)}
-                                        className={currentPage === number ? "current" : ""}
-                                    >
-                                        {number}
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
+                                </tbody>
+                            </Table>
+                            <div className="paging">
+                                {pageNumbers.map((number) => {
+                                    return (
+                                        <button
+                                            key={number}
+                                            onClick={() => setCurrentPage(number)}
+                                            className={currentPage === number ? "current" : ""}
+                                        >
+                                            {number}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
             </div >
         )
     else {

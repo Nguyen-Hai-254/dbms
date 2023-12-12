@@ -74,6 +74,8 @@ function AddProductForm(props) {
         return rs;
       })().then(()=>{
         message.success("Add product successfully!")
+        props.setShowForm(false);
+        props.setReload(!props.reload)
       }).catch((err)=>{
         message.error("Add product failed!")
       });

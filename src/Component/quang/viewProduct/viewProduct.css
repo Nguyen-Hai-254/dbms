@@ -3,6 +3,7 @@
     height: 350px;
     display: flex;
     padding: 5px;
+    background-color: white;
     border-radius: 5px;
     flex-direction: column;
     align-items: center;

@@ -39,7 +39,9 @@
     height: 30px !important;
     border-radius: 20px;
 }
-
+.manage-employee {
+    background: #647690 !important;
+}
 @media only screen and (max-width: 600px) {
     .table-container {
         overflow-x: auto !important;
@@ -96,7 +98,7 @@
 
 .admin-item {
     width: 90%;
-    background: #EDE9FE;
+    background: #F3F3F3;
     height: 40px;
     display: flex;
     justify-content: space-between;
@@ -210,6 +212,7 @@ a {
     justify-content: center;
     align-items: center;
     text-align: center;
+  
 }
 
 .image_info_arrow {

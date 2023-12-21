@@ -145,7 +145,7 @@ function ShowOrder(props) {
   // }, [detailOrder]);
   const calculateTotalPrice = (detailOrder) => {
     console.log(detailOrder)
-    return detailOrder.reduce((total, order) => total + order.price, 0).toLocaleString();
+    return detailOrder.reduce((total, order) => total + order.price*order.count, 0).toLocaleString();
   }
   return (
     <div style={{ padding: "0px" }}>
